@@ -11,41 +11,38 @@ type AVLNode struct {
 	Right  *AVLNode
 }
 
-func (node *AVLNode) getHeight() int {
+func (node *AVLNode) GetHeight() int {
 	if node == nil {
 		return -1
 	}
 	return node.Height
 }
 
-func (node *AVLNode) updateHeight() {
-	node.Height = max(node.Left.getHeight(), node.Right.getHeight()) + 1
+func (node *AVLNode) UpdateHeight() {
+	node.Height = max(node.Left.GetHeight(), node.Right.GetHeight()) + 1
 }
 
-func (node *AVLNode) getBalance() int {
+func (node *AVLNode) GetBalance() int {
 	if node == nil {
 		return 0
 	}
-	return node.Left.getHeight() - node.Right.getHeight()
+	return node.Left.GetHeight() - node.Right.GetHeight()
 }
 
-func (node *AVLNode) rightRotate() *AVLNode {
+func (node *AVLNode) RightRotate() *AVLNode {
 	left := node.Left
 	t3 := left.Right
 
-	// Выполнение поворота
 	left.Right = node
 	node.Left = t3
 
-	// Обновление высот после поворота
-	node.updateHeight()
-	left.updateHeight()
+	node.UpdateHeight()
+	left.UpdateHeight()
 
-	// Возвращение нового корня после поворота
 	return left
 }
 
-func removeDuplicates(nums []int) int {
+func RemoveDuplicates(nums []int) int {
 	last := nums[0]
 	j := 1
 	for i := 1; i < len(nums); i++ {
@@ -58,18 +55,11 @@ func removeDuplicates(nums []int) int {
 	return j
 }
 
-func preOrderTrav(tree *AVLNode) {
+func PreOrderTrav(tree *AVLNode) {
 	if tree == nil {
 		return
 	}
 	fmt.Println(tree.Val)
-	preOrderTrav(tree.Left)
-	preOrderTrav(tree.Right)
-}
-
-func main() {
-	one := []int{1, 1, 2, 2, 3, 3}
-	fmt.Print(one)
-	removeDuplicates(one)
-	fmt.Print(one)
+	PreOrderTrav(tree.Left)
+	PreOrderTrav(tree.Right)
 }
